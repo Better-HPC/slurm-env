@@ -8,8 +8,14 @@ RUN dnf install -y \
       # Build tools
       rpm-build \
       wget \
-      # Slurm Dependencies
+      # Slurm Dependencies \
+      http-parser-devel \
+      json-c-devel \
       munge-devel \
+      pam-devel \
+      perl-ExtUtils-MakeMaker \
+      readline-devel \
+      systemd \
  && dnf clean all
 
 # Build Slurm RPMs
