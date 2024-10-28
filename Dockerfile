@@ -9,8 +9,10 @@ RUN dnf install -y \
       rpm-build \
       wget \
       # Slurm Dependencies \
+      hdf5-devel \
       http-parser-devel \
       json-c-devel \
+      mariadb-devel \
       munge-devel \
       pam-devel \
       perl-ExtUtils-MakeMaker \
