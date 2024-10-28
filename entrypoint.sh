@@ -15,4 +15,8 @@ mysql -NBe "
     GRANT USAGE ON *.* TO 'slurm'@'localhost';
     GRANT ALL PRIVILEGES ON slurm_acct_db.* TO 'slurm'@'localhost';
     FLUSH PRIVILEGES;"
-echo "Database \`slurm_acct_db\` is populated"
+echo "Database \`slurm_acct_db\` is populated."
+
+echo -e "\n>> Starting munge"
+/usr/sbin/create-munge-key -f
+/usr/sbin/runuser -u munge -- /usr/sbin/munged
