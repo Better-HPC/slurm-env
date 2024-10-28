@@ -2,9 +2,10 @@ FROM rockylinux:9 AS build
 
 ARG SLURM_VERSION
 
-# Install dependencies
-RUN dnf install -y epel-release && crb enable
-RUN dnf install -y \
+# Install build tools / Slurm dependencies
+RUN dnf install -y epel-release  \
+ && crb enable \
+ && dnf install -y \
       # Build tools
       rpm-build \
       wget \
@@ -31,8 +32,15 @@ FROM rockylinux:9
 # Copy RPM files from build step
 COPY --from=build /root/rpmbuild/RPMS/*/slurm-*.rpm /rpms/
 
-# Install Slurm
-RUN dnf install -y /rpms/* \
+# Install system packages
+RUN dnf install -y epel-release  \
+ && crb enable \
+ && dnf install -y \
+        /rpms/* \
+        python3.11 \
+        python3.11-pip \
+        python3.12 \
+        python3.12-pip \
  && dnf clean all \
  && rm -rf /var/cache/dnf \
  && rm -rf /rpms/
