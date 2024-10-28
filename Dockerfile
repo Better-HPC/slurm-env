@@ -39,11 +39,21 @@ RUN dnf install -y epel-release  \
  && crb enable \
  && dnf install -y \
         /rpms/* \
+        mariadb-server \
  && dnf clean all \
  && rm -rf /var/cache/dnf \
  && rm -rf /rpms/
+
+# Install MySQL/MariaDB
+RUN /usr/bin/mysql_install_db \
+ && chown -R mysql:mysql /var/lib/mysql \
+ && chown -R mysql:mysql /var/log/mariadb
 
 # Create system resources required by Slurm
 RUN groupadd -r slurm && useradd -r -g slurm slurm
 COPY --chown=slurm configs/$SLURM_VERSION/slurm.conf /etc/slurm/slurm.conf
 COPY --chown=slurm --chmod=600 configs/$SLURM_VERSION/slurmdbd.conf /etc/slurm/slurmdbd.conf
+
+# Launch Slurm and supporting services
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
