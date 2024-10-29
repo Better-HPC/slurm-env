@@ -13,6 +13,8 @@ RUN dnf install -y epel-release  \
       hdf5-devel \
       http-parser-devel \
       json-c-devel \
+      libjwt-devel \
+      libyaml-devel \
       mariadb-devel \
       munge-devel \
       pam-devel \
@@ -40,6 +42,10 @@ RUN dnf install -y epel-release  \
  && dnf install -y \
         /rpms/* \
         mariadb-server \
+        python3.11 \
+        python3.11-pip \
+        python3.12 \
+        python3.12-pip \
  && dnf clean all \
  && rm -rf /var/cache/dnf \
  && rm -rf /rpms/
