@@ -1,26 +1,26 @@
-name: 🤖 Setup
+name: 🤖 Matrix
 
 on:
   workflow_call:
     outputs:
-      versions:
-        description: "A JSON list of Slurm versions to build."
-        value: ${{ jobs.load.outputs.versions }}
+      matrix:
+        description: "The strategy matrix used to build images"
+        value: ${{ jobs.matrix.outputs.matrix }}
 
 jobs:
-  load:
-    name: Load Slurm Versions
+  matrix:
+    name: Load Build Matrix
     runs-on: ubuntu-latest
 
     outputs:
-      versions: ${{ steps.build-array.outputs.versions }}
+      matrix: ${{ steps.create-matrix.outputs.matrix }}
 
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
 
-      - name: Build version array
-        id: build-array
+      - name: Create build matrix
+        id: create-matrix
         run: |
           # List subdirectories under configs/
           dirs=$(find configs -maxdepth 1 -type d -not -path 'configs' -exec basename {} \;)
