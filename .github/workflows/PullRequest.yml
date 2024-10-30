@@ -1,7 +1,7 @@
-name: A temporary workflow for CI development
+name: 🎯 Pull Request
 
 on:
-  push:
+  pull_request:
 
 jobs:
   setup:
@@ -13,4 +13,4 @@ jobs:
     needs: [ setup ]
     uses: ./.github/workflows/Build.yml
     with:
-      matrix: ${{ needs.matrix.outputs.matrix }}
+      matrix: ${{ needs.setup.outputs.matrix }}
