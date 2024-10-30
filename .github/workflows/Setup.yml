@@ -29,4 +29,4 @@ jobs:
           
           # Convert to JSON array
           dirs_json=$(jq -R -s 'split("\n") | map(select(length > 0))' <<< "$dirs")
-          echo "::set-output name=versions::$dirs_json"
+          echo "versions=$dirs_json" >> "$GITHUB_OUTPUT"
