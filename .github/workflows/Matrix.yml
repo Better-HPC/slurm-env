@@ -1,0 +1,32 @@
+name: 🤖 Build Matrix
+
+on:
+  workflow_call:
+    outputs:
+      matrix:
+        description: "A JSON list of Slurm versions to build."
+        value: ${{ jobs.matrix.outputs.matrix }}
+
+jobs:
+  matrix:
+    name: Load Slurm Versions
+    runs-on: ubuntu-latest
+
+    outputs:
+      matrix: ${{ steps.build-array.outputs.versions }}
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Build version array
+        id: build-array
+        run: |
+          # List subdirectories under configs/
+          dirs=$(find configs -maxdepth 1 -type d -not -path 'configs' -exec basename {} \;)
+          echo "Config directories found:"
+          echo "$dirs"
+          
+          # Convert to JSON array
+          dirs_json=$(jq -R -s 'split("\n") | map(select(length > 0))' <<< "$dirs")
+          echo "::set-output name=versions::$dirs_json"

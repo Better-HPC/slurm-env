@@ -1,0 +1,9 @@
+name: A temporary workflow for CI development
+
+on:
+  push:
+
+jobs:
+  matrix:
+    name: Matrix
+    uses: ./.github/workflows/Matrix.yml
