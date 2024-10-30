@@ -3,17 +3,17 @@ name: 🤖 Setup
 on:
   workflow_call:
     outputs:
-      matrix:
+      versions:
         description: "A JSON list of Slurm versions to build."
-        value: ${{ jobs.matrix.outputs.matrix }}
+        value: ${{ jobs.load.outputs.versions }}
 
 jobs:
-  matrix:
+  load:
     name: Load Slurm Versions
     runs-on: ubuntu-latest
 
     outputs:
-      matrix: ${{ steps.build-array.outputs.versions }}
+      versions: ${{ steps.build-array.outputs.versions }}
 
     steps:
       - name: Checkout source

@@ -3,7 +3,7 @@ name: 🤖 Build
 on:
   workflow_call:
     inputs:
-      matrix:
+      versions:
         type: string
         required: true
         description: "A JSON list of Slurm versions to build."
@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        version: ${{ fromJson(inputs.matrix) }}
+        version: ${{ fromJson(inputs.versions) }}
 
     steps:
       - name: Test

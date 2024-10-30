@@ -13,4 +13,4 @@ jobs:
     needs: [ setup ]
     uses: ./.github/workflows/Build.yml
     with:
-      matrix: ${{ needs.setup.outputs.matrix }}
+      versions: ${{ needs.setup.outputs.versions }}
