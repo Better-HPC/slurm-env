@@ -4,6 +4,13 @@ on:
   push:
 
 jobs:
-  matrix:
+  setup:
     name: Matrix
-    uses: ./.github/workflows/Matrix.yml
+    uses: ./.github/workflows/Setup.yml
+
+  build:
+    name: Build
+    needs: [ setup ]
+    uses: ./.github/workflows/Build.yml
+    with:
+      matrix: ${{ needs.setup.outputs.matrix }}
