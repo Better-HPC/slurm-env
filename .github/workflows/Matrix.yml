@@ -1,4 +1,4 @@
-name: 🤖 Build Matrix
+name: 🤖 Setup
 
 on:
   workflow_call:

@@ -1,0 +1,24 @@
+name: 🤖 Build
+
+on:
+  workflow_call:
+    inputs:
+      matrix:
+        type: string
+        required: true
+        description: "A JSON list of Slurm versions to build."
+
+jobs:
+  build:
+    name: Build Images
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      strategy:
+        matrix:
+            version: ${{ fromJson(inputs.matrix) }}
+
+    steps:
+      - name: Test
+        run:  echo ${{ matrix.version }}
