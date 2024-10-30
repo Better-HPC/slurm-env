@@ -1,0 +1,7 @@
+{
+  "matrix": {
+    "include": [
+      {"version": "23.02.5"}
+    ]
+  }
+}
