@@ -13,20 +13,14 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      matrix: ${{ steps.create-matrix.outputs.matrix }}
+      matrix: ${{ steps.load-matrix.outputs.matrix }}
 
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
 
-      - name: Create build matrix
-        id: create-matrix
-        run: |
-          # List subdirectories under configs/
-          dirs=$(find configs -maxdepth 1 -type d -not -path 'configs' -exec basename {} \;)
-          echo "Config directories found:"
-          echo "$dirs"
-          
-          # Convert to JSON array
-          dirs_json=$(jq -R -s 'split("\n") | map(select(length > 0))' <<< "$dirs")
-          echo "versions=$dirs_json" >> "$GITHUB_OUTPUT"
+      - name: Load matrix
+        id: load-matrix
+        uses: zoexx/github-action-json-file-properties@release
+        with:
+          file_path: "configs/matrix.json"
