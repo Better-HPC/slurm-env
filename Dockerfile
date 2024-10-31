@@ -41,6 +41,7 @@ RUN dnf install -y epel-release  \
  && crb enable \
  && dnf install -y \
         /rpms/* \
+        bats \
         mariadb-server \
         python3.11 \
         python3.11-pip \
@@ -62,4 +63,5 @@ COPY --chown=slurm --chmod=600 configs/$SLURM_VERSION/slurmdbd.conf /etc/slurm/s
 
 # Launch Slurm and supporting services
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY tests /tests
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

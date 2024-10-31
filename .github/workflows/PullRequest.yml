@@ -15,10 +15,17 @@ jobs:
     with:
       matrix: ${{ needs.setup.outputs.matrix }}
 
+  test:
+    name: Test
+    needs: [ setup, build ]
+    uses: ./.github/workflows/Test.yml
+    with:
+      matrix: ${{ needs.setup.outputs.matrix }}
+
   pr-status:
     name: PR Status
     runs-on: ubuntu-latest
-    needs: [ build ]
+    needs: [ test ]
     if: always()
 
     steps:
