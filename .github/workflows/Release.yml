@@ -1,0 +1,31 @@
+name: 🎯 Release
+
+on:
+  release:
+    types: [ "released" ]
+
+jobs:
+  setup:
+    name: Setup
+    uses: ./.github/workflows/Setup.yml
+
+  build:
+    name: Build
+    needs: [ setup ]
+    uses: ./.github/workflows/Build.yml
+    with:
+      matrix: ${{ needs.setup.outputs.matrix }}
+
+  test:
+    name: Test
+    needs: [ setup, build ]
+    uses: ./.github/workflows/Test.yml
+    with:
+      matrix: ${{ needs.setup.outputs.matrix }}
+
+  publish:
+    name: Publish
+    needs: [ setup, test ]
+    uses: ./.github/workflows/Publish.yml
+    with:
+      matrix: ${{ needs.setup.outputs.matrix }}
