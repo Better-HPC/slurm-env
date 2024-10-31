@@ -29,7 +29,7 @@ jobs:
 
       - name: Run tests
         run: |
-          image_name="ghcr.io/better-hpc/test-env:${{ matrix.version }}"
+          image_name="ghcr.io/better-hpc/slurm-env:${{ matrix.version }}"
           docker run -i $image_name bats /tests
 
   status:
