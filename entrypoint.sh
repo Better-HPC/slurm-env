@@ -2,16 +2,16 @@
 
 set -eo pipefail
 
-# Wait for a command exit
-wait() {
-    local cmd="$1"
-    local timeout=30
+# Wait for a command exit with a specified timeout in seconds
+wait_for() {
+    local timeout="$1"
+    local cmd="$2"
     local elapsed=0
     while ! eval "$cmd"; do
         sleep 1
         elapsed=$((elapsed + 1))
         if [ "$elapsed" -ge "$timeout" ]; then
-            echo "Error: Command timed out after ${timeout} seconds."
+            echo "Error: Command timed out after ${timeout} seconds (${command})"
             return 1
         fi
     done
@@ -20,7 +20,7 @@ wait() {
 echo "Launching services..."
 echo "(1/7) Starting MySQL server"
 /usr/bin/mysqld_safe --datadir='/var/lib/mysql' > /dev/null &
-wait "mysqladmin ping --silent"
+wait_for 30 "mysqladmin ping --silent"
 
 echo "(2/7) Populating Slurm database"
 mysql -NBe "
@@ -46,7 +46,7 @@ sleep 3
 
 echo "(6/7) Starting slurmctld"
 /usr/sbin/slurmctld -c
-wait "scontrol ping | grep -q 'UP'"
+wait_for 45 "scontrol ping | grep -q 'UP'"
 
 echo "(7/7) Starting slurmrestd"
 SLURM_JWT=daemon /usr/sbin/slurmrestd -u slurm 0.0.0.0:6820 &
