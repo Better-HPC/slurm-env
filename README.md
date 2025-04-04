@@ -14,7 +14,7 @@ docker run -it ghcr.io/better-hpc/slurm-env:[SLURM VERSION]
 
 ## Container Fixtures/Services
 
-The table below outline the clusters, partitions, and nodes defined in the Slurm configuration.
+The table below outlines the clusters, partitions, and nodes defined in the Slurm configuration.
 
 | Cluster | Partition    | Nodes        |
 |---------|--------------|--------------|
