@@ -27,7 +27,7 @@ Compiled images include tests to ensure the generated container is functioning p
 These tests can be run from any running container instance.
 
 ```bash
-docker run -i [Image Name] bats /tests
+docker run -i [IMAGE NAME] bats /tests
 ```
 
 ## Fixtures and Services
