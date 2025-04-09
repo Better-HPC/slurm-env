@@ -24,3 +24,7 @@ jobs:
         uses: zoexx/github-action-json-file-properties@release
         with:
           file_path: "configs/matrix.json"
+
+      - name: Echo loaded matrix
+        run: |
+          echo "Loaded matrix: ${{ steps.load-matrix.outputs.matrix }}"

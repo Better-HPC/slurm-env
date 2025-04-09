@@ -72,3 +72,5 @@ jobs:
           build-args: SLURM_VERSION=${{ matrix.version }}
           annotations: ${{ steps.meta.outputs.annotations }}
           platforms: linux/amd64,linux/arm64
+          cache-from: type=gha,scope=build-${{ github.ref_name }}-${{ matrix.version }}
+          cache-to: type=gha,mode=max,scope=build-${{ github.ref_name }}-${{ matrix.version }}
