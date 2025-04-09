@@ -33,8 +33,21 @@ jobs:
       - name: Define Docker metadata
         id: meta
         uses: docker/metadata-action@v5
+        env:
+          DOCKER_METADATA_ANNOTATIONS_LEVELS: manifest,index
         with:
-          images: ghcr.io/better-hpc/slurm-env/${{ matrix.version }}
+          images: ghcr.io/better-hpc/slurm-env
+          tags: |
+            type=raw,value=${{ matrix.version }}
+          labels: |
+            org.opencontainers.image.title="Slurm Environment"
+            org.opencontainers.image.description="Testing and development enviornment for Slurm related projects."
+            org.opencontainers.image.url="https://github.com/better-hpc/slurm-env"
+            org.opencontainers.image.source="https://github.com/better-hpc/slurm-env"
+            org.opencontainers.image.authors="Better HPC LLC"
+            org.opencontainers.image.revision="${{ github.sha }}"
+            org.opencontainers.image.vendor="Better HPC LLC"
+            org.opencontainers.image.ref.name="ghcr.io/better-hpc/slurm-env:${{ matrix.version }}"
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v3
@@ -51,4 +64,5 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: SLURM_VERSION=${{ matrix.version }}
+          annotations: ${{ steps.meta.outputs.annotations }}
           platforms: linux/amd64,linux/arm64
