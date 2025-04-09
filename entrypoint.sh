@@ -11,7 +11,7 @@ wait_for() {
         sleep 1
         elapsed=$((elapsed + 1))
         if [ "$elapsed" -ge "$timeout" ]; then
-            echo "Error: Command timed out after ${timeout} seconds (${command})"
+            echo "Error: Command timed out after ${timeout} seconds (${cmd})"
             return 1
         fi
     done
@@ -46,7 +46,7 @@ sleep 3
 
 echo "(6/7) Starting slurmctld"
 /usr/sbin/slurmctld -c
-wait_for 45 "scontrol ping | grep -q 'UP'"
+wait_for 30 "scontrol ping | grep 'UP'"
 
 echo "(7/7) Starting slurmrestd"
 SLURM_JWT=daemon /usr/sbin/slurmrestd -u slurm 0.0.0.0:6820 &
