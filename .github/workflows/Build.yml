@@ -27,8 +27,8 @@ jobs:
           tags: ghcr.io/better-hpc/slurm-env/${{ matrix.version }}
           outputs: type=docker,dest=/tmp/image.tar
           build-args: SLURM_VERSION=${{ matrix.version }}
-          # cache-from: type=gha,scope=build-${{ github.ref_name }}-${{ matrix.version }}
-          # cache-to: type=gha,mode=max,scope=build-${{ github.ref_name }}-${{ matrix.version }}
+          cache-from: type=gha,scope=build-${{ github.ref_name }}-${{ matrix.version }}
+          cache-to: type=gha,mode=max,scope=build-${{ github.ref_name }}-${{ matrix.version }}
 
       - name: Upload image artifact
         uses: actions/upload-artifact@v4
