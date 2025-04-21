@@ -61,3 +61,10 @@ This includes the following daemons and CLI utilities:
 - `sinfo`
 - `scontrol`
 
+## Adding Slurm Versions
+
+Support for new Slurm versions is added to this project in two steps:
+
+1. Add the new Slurm config files to the `configs` directory.
+   The subdirectory should be named after the corresponding Slurm version.
+2. Ensure the new version is discoverable by the project's CI/CD workflows by adding the version number to the build matrix in [configs/matrix.json](configs/matrix.json).
