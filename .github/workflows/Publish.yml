@@ -18,9 +18,6 @@ jobs:
       matrix: ${{ fromJson(inputs.matrix) }}
 
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
-
       - name: Fetch image artifact
         uses: actions/download-artifact@v4
         with:
@@ -55,7 +52,20 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Login to GitHub Container Registry
+      # Container registry credentials are only valid for a short timespan
+      # Compile long-running builds before authenticating
+      - name: Build image
+        uses: docker/build-push-action@v6
+        with:
+          load: true
+          build-args: SLURM_VERSION=${{ matrix.version }}
+          platforms: linux/amd64,linux/arm64
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          annotations: ${{ steps.meta.outputs.annotations }}
+          cache-from: type=gha,scope=build-${{ github.ref_name }}-${{ matrix.version }}
+
+      - name: Login to Container Registry
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
@@ -65,12 +75,9 @@ jobs:
       - name: Publish image
         uses: docker/build-push-action@v6
         with:
-          context: .
           push: true
+          build-args: SLURM_VERSION=${{ matrix.version }}
+          platforms: linux/amd64,linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-          build-args: SLURM_VERSION=${{ matrix.version }}
           annotations: ${{ steps.meta.outputs.annotations }}
-          platforms: linux/amd64,linux/arm64
-          cache-from: type=gha,scope=build-${{ github.ref_name }}-${{ matrix.version }}
-          cache-to: type=gha,mode=max,scope=build-${{ github.ref_name }}-${{ matrix.version }}
