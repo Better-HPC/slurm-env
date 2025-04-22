@@ -10,6 +10,8 @@ RUN dnf install -y epel-release  \
       rpm-build \
       wget \
       # Slurm Dependencies \
+      autoconf \
+      automake \
       hdf5-devel \
       http-parser-devel \
       json-c-devel \
