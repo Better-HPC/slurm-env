@@ -1,7 +1,10 @@
 {
   "matrix": {
     "include": [
-      {"version": "23.02.5"}
+      {"version": "23.02.2"},
+      {"version": "23.11.2"},
+      {"version": "24.05.2"},
+      {"version": "24.11.2"}
     ]
   }
 }
