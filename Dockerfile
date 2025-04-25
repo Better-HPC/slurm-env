@@ -64,6 +64,6 @@ COPY --chown=slurm configs/$SLURM_VERSION/slurm.conf /etc/slurm/slurm.conf
 COPY --chown=slurm --chmod=600 configs/$SLURM_VERSION/slurmdbd.conf /etc/slurm/slurmdbd.conf
 
 # Launch Slurm and supporting services
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+COPY entrypoint.sh /entrypoint.sh
 COPY tests /tests
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["/entrypoint.sh"]
