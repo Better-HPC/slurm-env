@@ -19,7 +19,7 @@ jobs:
 
     steps:
       - name: Fetch image artifact
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v6
         with:
           name: slurm-${{ matrix.version }}
           path: /tmp
