@@ -9,7 +9,7 @@ RUN dnf install -y epel-release  \
       # Build tools
       rpm-build \
       wget \
-      # Slurm Dependencies \
+      # Slurm Dependencies
       autoconf \
       automake \
       hdf5-devel \
