@@ -29,21 +29,7 @@ docker run -i [IMAGE NAME] bats /tests
 
 ## Fixtures and Services
 
-The following environment variables are injected into the container to describe the active runtime.
-
-| Variable Name     | Value                   |
-|-------------------|-------------------------|
-| `CLUSTER_TYPE`    | `slurm`                 |
-| `CLUSTER_VERSION` | `$(sacctmgr --version)` |
-
-The table below outlines the clusters, partitions, and nodes defined in the Slurm configuration.
-
-| Cluster | Partition    | Nodes        |
-|---------|--------------|--------------|
-| `bhpc`  | `partition1` | `node[1-5]`  |
-| `bhpc`  | `partition2` | `node[6-10]` |
-
-Containers are designed to include all core services/utilities required by Slurm.
+Containers include all core services/utilities required by Slurm.
 This includes the following daemons and CLI utilities:
 
 **Running Services**
@@ -64,6 +50,20 @@ This includes the following daemons and CLI utilities:
 - `squeue`
 - `sinfo`
 - `scontrol`
+
+The table below outlines the clusters, partitions, and nodes defined in the Slurm configuration.
+
+| Cluster | Partition    | Nodes        |
+|---------|--------------|--------------|
+| `bhpc`  | `partition1` | `node[1-5]`  |
+| `bhpc`  | `partition2` | `node[6-10]` |
+
+The following environment variables are injected into the container to describe the active runtime.
+
+| Variable Name     | Value                   |
+|-------------------|-------------------------|
+| `CLUSTER_TYPE`    | `slurm`                 |
+| `CLUSTER_VERSION` | `$(sacctmgr --version)` |
 
 ## Adding Slurm Versions
 
