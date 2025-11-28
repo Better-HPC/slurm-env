@@ -51,9 +51,5 @@ wait_for 30 "scontrol ping | grep 'UP'"
 echo "(7/7) Starting slurmrestd"
 SLURM_JWT=daemon /usr/sbin/slurmrestd -u slurm 0.0.0.0:6820 &
 
-# Setup dynamic environment variables
-export CLUSTER_TYPE="slurm"
-export CLUSTER_VERSION="$(sacctmgr --version)"
-
 echo "System ready"
 exec "$@"

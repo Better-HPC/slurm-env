@@ -63,6 +63,10 @@ RUN groupadd -r slurm && useradd -r -g slurm slurm
 COPY --chown=slurm configs/$SLURM_VERSION/slurm.conf /etc/slurm/slurm.conf
 COPY --chown=slurm --chmod=600 configs/$SLURM_VERSION/slurmdbd.conf /etc/slurm/slurmdbd.conf
 
+# Setup dynamic environment variables
+RUN export CLUSTER_TYPE="slurm" \
+ && export CLUSTER_VERSION="$(sacctmgr --version)"
+
 # Launch Slurm and supporting services
 COPY entrypoint.sh /entrypoint.sh
 COPY tests /tests
