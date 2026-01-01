@@ -31,7 +31,7 @@ jobs:
           cache-to: type=gha,mode=max,scope=build-${{ github.ref_name }}-${{ matrix.version }}
 
       - name: Upload image artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: slurm-${{ matrix.version }}
           path: /tmp/image.tar
