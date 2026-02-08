@@ -10,8 +10,8 @@ wait_for() {
     while ! eval "$cmd"; do
         sleep 1
         elapsed=$((elapsed + 1))
-        if [ "$elapsed" -ge "$timeout" ]; then
-            echo "Error: Command timed out after ${timeout} seconds (${cmd})"
+        if [[ "$elapsed" -ge "$timeout" ]]; then
+            echo "Error: Command timed out after ${timeout} seconds (${cmd})" >&2
             return 1
         fi
     done
