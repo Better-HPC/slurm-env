@@ -26,9 +26,9 @@ RUN dnf install -y epel-release  \
  && dnf clean all
 
 # Build Slurm RPMs
-RUN wget https://download.schedmd.com/slurm/slurm-$SLURM_VERSION.tar.bz2 \
- && rpmbuild -ta slurm-$SLURM_VERSION.tar.bz2 --with slurmrestd \
- && rm -rf slurm-$SLURM_VERSION.tar.bz2
+RUN wget "https://download.schedmd.com/slurm/slurm-$SLURM_VERSION.tar.bz2" \
+ && rpmbuild -ta "slurm-$SLURM_VERSION.tar.bz2" --with slurmrestd \
+ && rm -rf "slurm-$SLURM_VERSION.tar.bz2"
 
 
 FROM rockylinux:9
