@@ -1,13 +1,13 @@
 {
   "matrix": {
     "include": [
-      {"version": "23.02"},
-      {"version": "23.11"},
-      {"version": "24.05"},
-      {"version": "24.11"},
-      {"version": "25.05"},
-      {"version": "25.11"},
-      {"version": "26.05"}
+      {"version": "23.02.2"},
+      {"version": "23.11.2"},
+      {"version": "24.05.2"},
+      {"version": "24.11.2"},
+      {"version": "25.05.2"},
+      {"version": "25.11.2"},
+      {"version": "26.05.2"}
     ]
   }
 }
